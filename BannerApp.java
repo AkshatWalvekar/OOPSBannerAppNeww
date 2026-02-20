@@ -1,109 +1,77 @@
 
 
 
-import java.util.Scanner;
+import java.util.*;
 
-class OOPSBannerApp{
-	static class CharacterPatternMap{
-		String[] pattern;
-		Character character;
-		CharacterPatternMap(Character character,String[] pattern){
-			this.character=character;
-			this.pattern=pattern;
+class BannerApp{
 		
-		}
+    public static HashMap<Character, String[]> createCharacterMap(){
 		
-	}
-    public static CharacterPatternMap[] createCharacterPatternMaps(){
+		HashMap<Character, String[]> charMap = new HashMap<>();
 		
-        String getpatternO[]={
-            "  ***  ",
-            " ** ** ",
-            "**   **",
-            "**   **",
-            "**   **",
-            "**   **",
-            "**   **",
-            " ** ** ",
-            "  ***  "	
+		String[] patternO = {
+                "  ***   ",
+                " ** **  ",
+                "**   ** ",
+                "**   ** ",
+                "**   ** ",
+                "**   ** ",
+                "**   ** ",
+                " ** **  ",
+                "  ***   "
         };
-        String getpatternP[]={
-			" ****** ",
-            " **   **",
-            " **   **",
-            " **   **",
-            " ****** ",
-            " **     ",
-            " **     ",
-            " **     ",
-            " **     "
+
+        String[] patternP = {
+                " ****** ",
+                " **   **",
+                " **   **",
+                " **   **",
+                " ****** ",
+                " **     ",
+                " **     ",
+                " **     ",
+                " **     "
         };
-        String getpatternS[]={
-            " ***** ",
-            " **    ",
-            " **    ",
-            " **    ",
-            "  ***  ",
-            "    ** ",
-            "    ** ",
-            "    ** ",
-            " ***** "	
+
+        String[] patternS = {
+                " ***** ",
+                " **    ",
+                " **    ",
+                " **    ",
+                "  ***  ",
+                "    ** ",
+                "    ** ",
+                "    ** ",
+                " ***** "
         };
-		String patternspace[]={
-			" ",
-			" ",
-			" ",
-			" ",
-			" ",
-			" ",
-			" ",
-			" ",
-			" "
-		};
-		CharacterPatternMap a=new CharacterPatternMap('o',getpatternO);
-		CharacterPatternMap b=new CharacterPatternMap('p',getpatternP);
-		CharacterPatternMap c=new CharacterPatternMap('s',getpatternS);
-		CharacterPatternMap d=new CharacterPatternMap(' ',patternspace);
-		return new CharacterPatternMap[]{a,b,c,d};
+
+        
+
+        // Store patterns in HashMap
+        charMap.put('O', patternO);
+        charMap.put('P', patternP);
+        charMap.put('S', patternS);
+
+        return charMap;
+    }
 			
         		
-	}
-    public static String[] getCharacterPattern(char ch,CharacterPatternMap[] charMaps){
-		for(CharacterPatternMap charac:charMaps){
-            if(charac.character.equals(ch)){
-				String getp[]=charac.pattern;
-				return getp;
-			}	
-		}
-		return new String[]{" "};
-    }	
-    public static void printMessage(String message,CharacterPatternMap[] charMaps){
-		char ch[]=message.toCharArray();
-		StringBuilder[] lines=new StringBuilder[9];
-		for(int i=0;i<lines.length;i++){
-			lines[i]=new StringBuilder();
-		}
-		
-		for(char chh:ch){
-			String newpat[]=getCharacterPattern(chh,charMaps);
-			
+	public static void displayBanner(HashMap<Character,String[]>map,String message){
 		for(int i=0;i<9;i++){
-		lines[i].append(newpat[i]).append(" ");
+			StringBuilder str=new StringBuilder();
+			for(int j=0;j<message.length();j++){
+				String[] temp = map.get(message.charAt(j));
+				str.append(temp[i]);
 			}
+			System.out.println(str);
+			
 		}
+    }	
 		
-		for(StringBuilder l:lines){
-			System.out.println(l.toString());
-		}
+	public static void main(String args[]){
+		HashMap<Character,String[]>map = createCharacterMap();
+		String message = "OOPS";
+		displayBanner(map,message);
+		
+	}
 }
-	
-	public static void main(String[] args){
-		CharacterPatternMap[] mp=createCharacterPatternMaps();
-		System.out.println("Enter a string in lowercase:");
-		Scanner sc=new Scanner(System.in);
-		String s=sc.nextLine();
-		printMessage(s,mp);
-    }
-}	
-	
-    	
